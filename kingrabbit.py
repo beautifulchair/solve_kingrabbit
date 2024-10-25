@@ -1,25 +1,23 @@
-_empty = 0
-_rabbit = 1
-_box = 2
-_board = 3
-_wall = 4
+from enum import Enum
 
 
-class Object:
-    def __init__(self, v):
-        self.v = v
-        self.c = Object.char(self.v)
+class Object(Enum):
+    EMPTY = 0
+    RABBIT = 1
+    BOX = 2
+    BOARD = 3
+    WALL = 4
 
-    def char(v):
-        if v == _empty:
+    def char(o):
+        if o == Object.EMPTY:
             return " "
-        elif v == _rabbit:
+        elif o == Object.RABBIT:
             return "@"
-        elif v == _box:
+        elif o == Object.BOX:
             return "$"
-        elif v == _board:
+        elif o == Object.BOARD:
             return "o"
-        elif v == _wall:
+        elif o == Object.WALL:
             return "#"
         else:
             return "?"
@@ -37,7 +35,7 @@ class Stage:
     def show(self):
         for row in self.table:
             for x in row:
-                print(x.c, end="")
+                print(Object.char(x), end="")
             print()
 
 
