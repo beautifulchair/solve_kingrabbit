@@ -50,6 +50,9 @@ class Stage:
                 if self.table[r][c] == Object.RABBIT:
                     self.rabbit_position = np.array([r, c])
 
+    def equal_to(self, stage):
+        return np.array_equal(self.table, stage.table)
+
     def show(self):
         for row in self.table:
             for x in row:
