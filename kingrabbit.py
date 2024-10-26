@@ -123,15 +123,15 @@ class Stage:
 
 
 if __name__ == "__main__":
-    stage = Stage("input/stage1.txt")
-    stage.show()
+    init_stage = Stage("input/stage1.txt")
+    init_stage.show()
 
     tree = Tree()
     nodes = []
     reached_stages = []
-    root = tree.create_node("", "", data=stage)
+    root = tree.create_node("", "", data=init_stage)
     nodes.append(root)
-    reached_stages.append(stage)
+    reached_stages.append(init_stage)
 
     judge_dic = {"1-3": Object.BOX, "2-2": Object.BOX, "4-3": Object.BOX}
 
