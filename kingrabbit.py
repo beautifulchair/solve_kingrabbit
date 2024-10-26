@@ -31,6 +31,7 @@ class Stage:
                 # 改行を除く
                 line = line.replace("\n", "")
                 self.table.append(list(map(lambda x: Object(int(x)), line)))
+        self.table = np.array(self.table)
 
     def show(self):
         for row in self.table:
