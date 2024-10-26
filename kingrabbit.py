@@ -10,6 +10,18 @@ class MoveDirection(Enum):
     LEFT = [0, -1]
     UP = [-1, 0]
 
+    def from_char(c):
+        if c == "R":
+            return MoveDirection.RIGHT
+        elif c == "D":
+            return MoveDirection.DOWN
+        elif c == "L":
+            return MoveDirection.LEFT
+        elif c == "U":
+            return MoveDirection.UP
+        else:
+            raise AssertionError
+
 
 class Object(Enum):
     EMPTY = 0
@@ -120,6 +132,17 @@ class Stage:
             if self.table[*position] != o:
                 return False
         return True
+
+    def show_way(self, way_str):
+        """
+        way_strは'URLLD'のような形式
+        """
+        self.show()
+        directions = list(map(lambda x: MoveDirection.from_char(x), way_str))
+        for d in directions:
+            self.move_rabbit(d)
+            print()
+            self.show()
 
 
 if __name__ == "__main__":
