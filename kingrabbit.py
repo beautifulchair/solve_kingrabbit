@@ -2,6 +2,13 @@ from enum import Enum
 import numpy as np
 
 
+class MoveDirection(Enum):
+    RIGHT = [0, 1]
+    DOWN = [1, 0]
+    LEFT = [0, -1]
+    UP = [-1, 0]
+
+
 class Object(Enum):
     EMPTY = 0
     RABBIT = 1
