@@ -145,20 +145,17 @@ class Stage:
             self.show()
 
 
-if __name__ == "__main__":
-    init_stage = Stage("input/stage1.txt")
-    init_stage.show()
-
+def solve(init_stage, max_depth, judge_dic):
+    # 木, 到達済みステージのリストの定義
     tree = Tree()
     nodes = []
     reached_stages = []
     root = tree.create_node("", "", data=init_stage)
     nodes.append(root)
     reached_stages.append(init_stage)
-
-    judge_dic = {"1-3": Object.BOX, "2-2": Object.BOX, "4-3": Object.BOX}
+    # 解けたかどうかのフラグ
     solved = False
-
+    # 幅優先探索
     while not solved:
         current = nodes.pop()
         for d in MoveDirection:
@@ -184,11 +181,26 @@ if __name__ == "__main__":
                 nodes.insert(0, node)
                 reached_stages.append(node.data)
                 if stage.is_solved(judge_dic):
-                    print(way)
                     solved = True
                     break
             else:
                 continue
-        if tree.depth() > 30:
+        if tree.depth() > max_depth:
             break
-    print(tree.show(stdout=False))
+    if solve:
+        return way
+    else:
+        return None
+
+
+if __name__ == "__main__":
+    init_stage = Stage("input/stage1.txt")
+    init_stage.show()
+
+    judge_dic = {"1-3": Object.BOX, "2-2": Object.BOX, "4-3": Object.BOX}
+    solution = solve(init_stage, 100, judge_dic)
+    if solution:
+        init_stage.show_way(solution)
+        print(f"解法: {solution}")
+    else:
+        print(f"手数{100}以下の解法はありません。")
