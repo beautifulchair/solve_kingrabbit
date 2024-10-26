@@ -109,6 +109,16 @@ class Stage:
         else:
             raise AssertionError
 
+    def is_solved(self, judge_dic):
+        """
+        {"1-3": Object.BOX, "2-2": Object.BOX, "4-3": Object.BOX}のように与える
+        """
+        for position_str, o in judge_dic.items():
+            position = list(map(int, position_str.split("-")))
+            if self.table[*position] != o:
+                return False
+        return True
+
 
 if __name__ == "__main__":
     stage = Stage("input/stage1.txt")
