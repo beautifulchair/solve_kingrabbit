@@ -1,5 +1,7 @@
 from enum import Enum
 import numpy as np
+from treelib import Tree
+import copy
 
 
 class MoveDirection(Enum):
@@ -123,3 +125,45 @@ class Stage:
 if __name__ == "__main__":
     stage = Stage("input/stage1.txt")
     stage.show()
+
+    tree = Tree()
+    nodes = []
+    reached_stages = []
+    root = tree.create_node("", "", data=stage)
+    nodes.append(root)
+    reached_stages.append(stage)
+
+    judge_dic = {"1-3": Object.BOX, "2-2": Object.BOX, "4-3": Object.BOX}
+
+    while True:
+        current = nodes.pop()
+        for d in MoveDirection:
+            current_tag = current.tag
+            stage = copy.deepcopy(current.data)
+            if stage.move_rabbit(d):
+                way = current_tag + d.name[0]
+                # 既に到達しているステージの場合
+                is_reached = False
+                for s in reached_stages:
+                    if stage.equal_to(s):
+                        is_reached = True
+                        continue
+                if is_reached:
+                    continue
+
+                node = tree.create_node(
+                    way,
+                    way,
+                    data=stage,
+                    parent=current_tag,
+                )
+                nodes.insert(0, node)
+                reached_stages.append(node.data)
+                if stage.is_solved(judge_dic):
+                    print(way)
+                    break
+            else:
+                continue
+        if tree.depth() > 30:
+            break
+    print(tree.show(stdout=False))
