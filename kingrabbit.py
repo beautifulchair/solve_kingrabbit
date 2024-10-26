@@ -5,7 +5,7 @@ class Object(Enum):
     EMPTY = 0
     RABBIT = 1
     BOX = 2
-    BOARD = 3
+    # BOARD = 3
     WALL = 4
 
     def char(o):
@@ -15,8 +15,8 @@ class Object(Enum):
             return "@"
         elif o == Object.BOX:
             return "$"
-        elif o == Object.BOARD:
-            return "o"
+        # elif o == Object.BOARD:
+        #     return "o"
         elif o == Object.WALL:
             return "#"
         else:
