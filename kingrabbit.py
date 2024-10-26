@@ -32,6 +32,15 @@ class Stage:
                 line = line.replace("\n", "")
                 self.table.append(list(map(lambda x: Object(int(x)), line)))
         self.table = np.array(self.table)
+        # ステージの高さと幅
+        self.height = len(self.table)
+        self.width = len(self.table[0])
+        # rabbitの位置
+        self.rabbit_position = None
+        for r in range(self.height):
+            for c in range(self.width):
+                if self.table[r][c] == Object.RABBIT:
+                    self.rabbit_position = np.array([r, c])
 
     def show(self):
         for row in self.table:
