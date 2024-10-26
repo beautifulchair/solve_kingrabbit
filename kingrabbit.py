@@ -56,6 +56,56 @@ class Stage:
                 print(Object.char(x), end="")
             print()
 
+    def get_object(self, position: np.ndarray):
+        """
+        ステージ外のpositionを指定した場合はNoneを返す
+        """
+        assert len(position) == 2
+        if np.all(np.array([0, 0]) <= position) and np.all(
+            position < np.array([self.height, self.width])
+        ):
+            return self.table[*position]
+        else:
+            return None
+
+    def move_rabbit(self, move_direction: MoveDirection):
+        """
+        移動できる場合はTrue, できない場合はFalseを返す
+        """
+        next_position = self.rabbit_position + np.array(move_direction.value)
+        next_next_position = next_position + np.array(move_direction.value)
+
+        next_object = self.get_object(next_position)
+        next_next_object = self.get_object(next_next_position)
+
+        if next_object == Object.EMPTY:
+            self.table[*self.rabbit_position] = Object.EMPTY
+            self.table[*next_position] = Object.RABBIT
+            self.rabbit_position = next_position
+            return True
+        elif next_object == Object.WALL:
+            return False
+        elif next_object == Object.BOX:
+            if next_next_object in [Object.WALL, Object.BOX]:
+                return False
+            elif next_next_object in [Object.EMPTY]:
+                self.table[*self.rabbit_position] = Object.EMPTY
+                self.table[*next_position] = Object.RABBIT
+                self.table[*next_next_position] = Object.BOX
+                self.rabbit_position = next_position
+                return True
+            elif next_next_object in [None]:
+                self.table[*self.rabbit_position] = Object.EMPTY
+                self.table[*next_position] = Object.RABBIT
+                self.rabbit_position = next_position
+                return True
+            else:
+                raise AssertionError
+        elif next_object == None:
+            return False
+        else:
+            raise AssertionError
+
 
 if __name__ == "__main__":
     stage = Stage("input/stage1.txt")
