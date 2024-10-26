@@ -134,8 +134,9 @@ if __name__ == "__main__":
     reached_stages.append(init_stage)
 
     judge_dic = {"1-3": Object.BOX, "2-2": Object.BOX, "4-3": Object.BOX}
+    solved = False
 
-    while True:
+    while not solved:
         current = nodes.pop()
         for d in MoveDirection:
             current_tag = current.tag
@@ -161,6 +162,7 @@ if __name__ == "__main__":
                 reached_stages.append(node.data)
                 if stage.is_solved(judge_dic):
                     print(way)
+                    solved = True
                     break
             else:
                 continue
