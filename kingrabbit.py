@@ -197,10 +197,11 @@ if __name__ == "__main__":
     init_stage = Stage("input/stage1.txt")
     init_stage.show()
 
+    max_depth = 100
     judge_dic = {"1-3": Object.BOX, "2-2": Object.BOX, "4-3": Object.BOX}
-    solution = solve(init_stage, 100, judge_dic)
+    solution = solve(init_stage, max_depth, judge_dic)
     if solution:
         init_stage.show_way(solution)
         print(f"解法: {solution}")
     else:
-        print(f"手数{100}以下の解法はありません。")
+        print(f"手数{max_depth}以下の解法はありません。")
